@@ -15,5 +15,7 @@ Open problems im working on are:
 * Two Visualization (currently only Graph.scala) options: JFrame (-> improve performance) and OpenGL (-> yet to implement with LWJGL3) 
 * More methods for Vector and Matrix class
 * More classes (ideas?)
+⋅⋅* Complex Numbers
+⋅⋅* Quaternions
 * More Documentation (Java Doc)
 Feel free to contribute and improve this project :)
