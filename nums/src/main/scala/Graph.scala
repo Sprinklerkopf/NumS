@@ -10,7 +10,7 @@ import java.awt.Font
 import scala.collection.parallel.CollectionConverters._
 
 
-trait Graph extends JFrame{
+trait Graph{
     protected var stuff:List[Stuff] = List.empty
     def add(s:Stuff){
         this.synchronized{
@@ -24,7 +24,7 @@ trait Graph extends JFrame{
     }
     def drawStuff
 }
-class Graph2D extends Graph{
+class SwingGraph extends JFrame with Graph{
     private var x_space = (-5f, 5f)
     private var y_space = (-5f, 5f)
     setTitle("NumS - 2 dimensional Graph")
