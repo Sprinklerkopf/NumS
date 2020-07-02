@@ -24,6 +24,26 @@ trait Graph{
     }
     def drawStuff
 }
+class OpenGLGraph extends Thread with Graph{
+    private var display:Option[Display] = None
+    start()
+    override def run(){
+        if(display != None) display.get.destroy()
+        display = Some(new Display("NumS - 2 dimensional Graph"))
+        while(!display.get.shouldClose){
+            display.synchronized{
+             display.get.update()
+            }
+        }
+        display.get.destroy()
+    }
+    def drawStuff{
+        display.synchronized{
+            display.get.clear()
+            //TODO: drawing
+        }
+    }
+}
 class SwingGraph extends JFrame with Graph{
     private var x_space = (-5f, 5f)
     private var y_space = (-5f, 5f)

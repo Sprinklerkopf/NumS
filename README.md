@@ -8,15 +8,14 @@ This Scala library has the aim to extend Scala's (and Java's) native math, data 
 ## Usage
 This project is built with SBT so you can simply built it with the given build file (nums/build.sbt).
 If you want to use it as a library delete the example usage File (Main.scala) and deploy it with sbt-assembly (https://github.com/sbt/sbt-assembly), the dependency are already added in project/plugins.sbt.
-
-Especially Graph is heavily unfunctional. Suggestions to improve it are welcome.
+This library depends on LWJGL3, it is already imported for Linux, if you want a different version just replace the files in the lib folder.
 
 ## Contribute
 Open problems im working on are:
-* Two Visualization (currently only Graph.scala) options: JFrame (-> improve performance) and OpenGL (-> yet to implement with LWJGL3) 
+* Two Visualization (currently only Graph.scala) options: JFrame (-> improve performance) and OpenGL (-> yet to implement with LWJGL3)
 * More methods for Vector and Matrix class
 * More classes (ideas?)
   * Complex Numbers
     * Quaternions
 * More Documentation (Java Doc)
-Feel free to contribute and improve this project :)
+Feel free to contribute and improve this project, I am open to criticism :)

@@ -1,3 +1,4 @@
+
 object Main  {
   def main(args:Array[String]){
     val d = new SwingGraph()
@@ -9,5 +10,6 @@ object Main  {
     }
     d.add(new MathFunction(x=>(math.sin(x/20)*x*2).toFloat))
     d.drawStuff
-  } 
+    val g = new OpenGLGraph()
+  }
 }

@@ -2,3 +2,5 @@ nums/target/*
 nums/.bloop/*
 nums/project/target/*
 nums/.metals/*
+target/*
+nums/project/project/*

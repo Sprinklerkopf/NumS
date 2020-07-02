@@ -1,5 +1,4 @@
 // The simplest possible sbt build file is just one line:
-
 scalaVersion := "2.13.1"
 // That is, to create a valid sbt build, all you've got to do is define the
 // version of Scala you'd like your project to use.
@@ -72,3 +71,4 @@ libraryDependencies += "org.typelevel" %% "cats-core" % "2.0.0"
 // documentation at http://www.scala-sbt.org/documentation.html
 libraryDependencies +=
   "org.scala-lang.modules" %% "scala-parallel-collections" % "0.2.0"
+unmanagedJars in Compile += file("lib/lwjgl-glfw.jar")
