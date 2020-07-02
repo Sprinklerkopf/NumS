@@ -1,0 +1,5 @@
+target/*
+nums/target/*
+nums/project/*
+nums/.bloop/*
+nums/.metals/*
