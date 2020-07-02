@@ -12,8 +12,8 @@ Especially the "Stuff" and Graph is heavily unfunctional. Suggestions to improve
 
 ## Contribute
 Open problems im working on are:
-⋅⋅* Two Visualization (currently only Graph.scala) options: JFrame (-> improve performance) and OpenGL (-> yet to implement with LWJGL3) 
-⋅⋅* More methods for Vector and Matrix class
-⋅⋅* More classes (ideas?)
-⋅⋅* More Documentation (Java Doc)
+* Two Visualization (currently only Graph.scala) options: JFrame (-> improve performance) and OpenGL (-> yet to implement with LWJGL3) 
+* More methods for Vector and Matrix class
+* More classes (ideas?)
+* More Documentation (Java Doc)
 Feel free to contribute and improve this project :)
