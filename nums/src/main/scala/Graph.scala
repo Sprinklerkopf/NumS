@@ -25,32 +25,32 @@ trait Graph extends JFrame{
     def drawStuff
 }
 class Graph2D extends Graph{
-    var x_space = (-5f, 5f)
-    var y_space = (-5f, 5f)
+    private var x_space = (-5f, 5f)
+    private var y_space = (-5f, 5f)
     setTitle("NumS - 2 dimensional Graph")
     setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE)
-    val ge = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice()
-    val sz = ge.getDisplayMode()
-    val bd = ge.getDefaultConfiguration().getBounds()
-    val ks = if(sz.getWidth() > sz.getHeight()) sz.getHeight() else sz.getWidth()
+    private  val ge = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice()
+    private val sz = ge.getDisplayMode()
+    private val bd = ge.getDefaultConfiguration().getBounds()
+    private val ks = if(sz.getWidth() > sz.getHeight()) sz.getHeight() else sz.getWidth()
     setBounds(bd.x + sz.getWidth/2 - ks/4, bd.y + sz.getHeight/2 - ks/4, ks/2, ks/2)
-    var puff:BufferedImage = null
-    var g:Graphics2D = null
+    private var puff:BufferedImage = null
+    private var g:Graphics2D = null
     repaint()
     setVisible(true)
     /***************************/
-    def upstream(n:Float = 0f):Stream[(Float, Float)] = n match{
+    private def upstream(n:Float = 0f):Stream[(Float, Float)] = n match{
         case x if(x == 0) => (0f,1f)#::upstream(1)
         case x if(x == 1) => (1f,2f)#::upstream(2)
         case x if(x == 2) => (2f,5f)#::upstream(5)
         case x => (x,x+5)#::upstream(x+5)
     }
-    lazy val stru = upstream()
-    def downstream(n:Float = 1f):Stream[(Float, Float)] = n match{
+    private lazy val stru = upstream()
+    private def downstream(n:Float = 1f):Stream[(Float, Float)] = n match{
         case x => Stream((x, x/2f), (x/2f, x/10f))#:::downstream(n/10f)
     } 
-    lazy val strd = downstream()
-    def getStep(steps:Int, range:(Float, Float)):Float = {
+    private lazy val strd = downstream()
+    private def getStep(steps:Int, range:(Float, Float)):Float = {
         val w = range._2 - range._1
         if(math.abs(w/steps) >= 1f)
             stru.takeWhile(p=>Math.abs(w-p._1*steps) > Math.abs(w-p._2*steps)).last._2
@@ -58,9 +58,9 @@ class Graph2D extends Graph{
             strd.takeWhile(p=>Math.abs(w-p._1*steps) > Math.abs(w-p._2*steps)).last._2
     }
     /***************************/
-    def toFrameSpace(p:(Float,Float)):(Int, Int) = ((((p._1-x_space._1)/(x_space._2-x_space._1))*getWidth()).toInt, 
+    private def toFrameSpace(p:(Float,Float)):(Int, Int) = ((((p._1-x_space._1)/(x_space._2-x_space._1))*getWidth()).toInt, 
                                 getHeight()-(((p._2-y_space._1)/(y_space._2-y_space._1))*(getHeight()-30)).toInt)
-    def toDiagramSpace(p:(Int,Int)):(Float, Float) = (x_space._1 + (p._1.toFloat/getWidth())*(x_space._2-x_space._1), 
+    private def toDiagramSpace(p:(Int,Int)):(Float, Float) = (x_space._1 + (p._1.toFloat/getWidth())*(x_space._2-x_space._1), 
                                 y_space._1 + (1-(p._2.toFloat)/getHeight())*(y_space._2-y_space._1))
     override def paint(x:Graphics){
         if(puff == null || g == null || puff.getWidth() != getWidth() || puff.getHeight() != getHeight()){
@@ -120,7 +120,7 @@ class Graph2D extends Graph{
         }
         repaint()
     }
-    def normalize(f:Float) = if(f == 0) 0 else
+    private def normalize(f:Float) = if(f == 0) 0 else
         if(f < 1 && f > 0)
             strd.takeWhile(p=>Math.abs(f-p._1) > Math.abs(f-p._2)).last._2
         else if(f >= 1)
