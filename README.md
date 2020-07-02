@@ -12,7 +12,7 @@ This library depends on LWJGL3, it is already imported for Linux, if you want a 
 
 ## Contribute
 Open problems im working on are:
-* Two Visualization (currently only Graph.scala) options: JFrame (-> improve performance) and OpenGL (-> yet to implement with LWJGL3)
+* Two Visualization (currently only Graph.scala) options: JFrame (-> improve performance) and OpenGL (-> in progress)
 * More methods for Vector and Matrix class
 * More classes (ideas?)
   * Complex Numbers
