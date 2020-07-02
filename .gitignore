@@ -1,5 +1,4 @@
-target/*
 nums/target/*
-nums/project/*
 nums/.bloop/*
+nums/project/target/*
 nums/.metals/*
