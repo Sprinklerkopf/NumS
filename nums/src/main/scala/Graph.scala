@@ -109,6 +109,22 @@ class OpenGLGraph extends Thread with Graph{
             if(update){
                 update = false
                 display.clear()
+                val midp = toFrameSpace(0,0)
+                val lines = ((-1f, midp._2), (1f, midp._2), (0f, 0f, 0f)) :: ((midp._1, -1f), (midp._1, 1f), (0f, 0f, 0f)) :: Nil
+                BasicDrawer.drawLines(lines)
+                // while(x_space._1+stepx*i < x_space._2){
+                //     val x = toFrameSpace(x_space._1+stepx*i, 0)._1
+                //     g.drawLine(x.toInt, midp._2.toInt - 3, x.toInt, midp._2.toInt + 3)
+                //     g.drawString(""+(x_space._1 + stepx*i), x-5, midp._2 + (if(i%2==0) -3 else 12))
+                //     i+=1
+                // }
+                // i = 1
+                // while(y_space._1+stepy*i < y_space._2){
+                //     val y = toFrameSpace(0, y_space._1+stepy*i)._2
+                //     g.drawLine(midp._1.toInt - 3, y.toInt, midp._1.toInt + 3, y.toInt)
+                //     if(Math.abs(y-midp._2) >= 20) g.drawString(""+(y_space._1 + stepy*i), midp._1 + (if(i%2==0) -25 else 3), y)
+                //     i+=1
+                // }
                 //Collect points to render them 
                 var currentSize = -1f
                 for(po <- stuff if(po.isInstanceOf[Point])){
@@ -130,7 +146,7 @@ class OpenGLGraph extends Thread with Graph{
         display.destroy()
     }
     override def drawStuff{
-        update = true
+        //update = true
     }
      //xspace, yspace => (-1, 1), (-1, 1)
     override protected def toFrameSpace(p:(Float,Float)):(Float, Float) = (((p._1 - x_space._1)/(x_space._2 - x_space._1))*2f - 1f,
