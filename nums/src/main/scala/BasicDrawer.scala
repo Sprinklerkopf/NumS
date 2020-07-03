@@ -1,5 +1,6 @@
 import org.lwjgl.opengl.GL11._
 object BasicDrawer {
+  //POINTS
   def drawPoints(p:((Float, Float), (Float, Float, Float))*) {
     glBegin(GL_POINTS)
     p.foreach(p=>{
@@ -8,6 +9,13 @@ object BasicDrawer {
     })
     glEnd()
   }
+  def beginDrawingPoints() = glBegin(GL_POINTS)
+  def drawPoint(p:((Float, Float), (Float, Float,Float))){
+      glColor3f(p._2._1, p._2._2, p._2._3)
+      glVertex2f(p._1._1, p._1._2)
+  }
+  def endDrawing() = glEnd
+  //LINES
   def drawLines(lines:((Float, Float), (Float, Float), (Float, Float, Float))*){
     glBegin(GL_LINES)
     lines.foreach(p => {
@@ -25,6 +33,7 @@ object BasicDrawer {
     })
     glEnd()
   }
+  //POLYGONS
   def drawPolygon(coords:((Float, Float), (Float, Float, Float))* ){
     glBegin(GL_LINE_LOOP)
     coords.foreach(p => {

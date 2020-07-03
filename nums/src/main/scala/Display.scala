@@ -10,8 +10,8 @@ class GLFWException(cause:String) extends RuntimeException(cause){
   }
 }
 class Display(title:String, w:Int, h:Int){
-  private var nfsw: Int = width
-  private var nfsh:Int = height
+  private var nfsw: Int = w
+  private var nfsh:Int = h
 
   private var old = System.currentTimeMillis()
   private var frametime = 0L
@@ -23,7 +23,7 @@ class Display(title:String, w:Int, h:Int){
   private var monitor = glfwGetPrimaryMonitor()
   private var width = if(w < 0)(glfwGetVideoMode(monitor).width()/1.5).toInt else w
   private var height = if(h < 0)(glfwGetVideoMode(monitor).height()/1.5).toInt else h
-
+  def getSize():(Int,Int) = (width, height)
   GLFWErrorCallback.createPrint(System.out).set()
   glfwDefaultWindowHints
   glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE)
