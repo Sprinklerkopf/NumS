@@ -102,6 +102,7 @@ class OpenGLGraph extends Thread with Graph{
     start()
     override def run(){
         val display = new Display("NumS - 2 dimensional Graph")
+        display.setClearColor((1f,1f,1f))
         while(!display.shouldClose){
             w = display.getSize()._1
             h = display.getSize()._2

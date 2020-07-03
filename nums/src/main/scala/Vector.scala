@@ -67,14 +67,17 @@ class Vec4(val x:Float,val y:Float,val z:Float,val w:Float) extends Vector(x,y,z
 //CASTING
 object Vec2{
   implicit def toTupel(vec:Vec2):(Float, Float) = (vec.x,vec.y)
+  implicit def fromTupel(vec:(Float, Float)) = new Vec2(vec._1,vec._2)
   implicit def toVec2(vec:Vector):Vec2 = new Vec2(vec.getValues()(0), vec.getValues()(1))
 }
 object Vec3{
-  implicit def toTupel(vec:Vec3):(Float, Float, Float) = (vec.x,vec.y,vec.z)
+  implicit def toTupel(vec:Vec3) = (vec.x,vec.y,vec.z)
+  implicit def fromTupel(vec:(Float, Float, Float)) = new Vec3(vec._1,vec._2,vec._3)
   implicit def toVec3(vec:Vector):Vec3 = new Vec3(vec.getValues()(0), vec.getValues()(1), vec.getValues()(2))
 }
 object Vec4{
   implicit def toTupel(vec:Vec4):(Float, Float, Float, Float) = (vec.x,vec.y,vec.z,vec.w)
+  implicit def fromTupel(vec:(Float, Float, Float, Float)) = new Vec4(vec._1,vec._2,vec._3,vec._4)
   implicit def toVec4(vec:Vector):Vec4 = new Vec4(vec.getValues()(0), vec.getValues()(1), vec.getValues()(2), vec.getValues()(3))
 }
 object VecTools{
