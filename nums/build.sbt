@@ -72,3 +72,4 @@ libraryDependencies += "org.typelevel" %% "cats-core" % "2.0.0"
 libraryDependencies +=
   "org.scala-lang.modules" %% "scala-parallel-collections" % "0.2.0"
 unmanagedJars in Compile += file("lib/lwjgl-glfw.jar")
+unmanagedJars in Compile += file("lib/slick-util.jar")

@@ -107,12 +107,20 @@ class OpenGLGraph extends Thread with Graph{
             w = display.getSize()._1
             h = display.getSize()._2
             if(update){
-                update = true
+                update = false
                 display.clear()
                 //Collect points to render them 
-                BasicDrawer.beginDrawingPoints()
+                var currentSize = -1f
                 for(po <- stuff if(po.isInstanceOf[Point])){
                     val p:Point = po.asInstanceOf[Point]
+                    if(currentSize < 0){
+                        BasicDrawer.beginDrawingPoints(p.radius)
+                        currentSize = p.radius
+                    }else if(currentSize != p.radius){
+                        BasicDrawer.endDrawing()
+                        BasicDrawer.beginDrawingPoints(p.radius)
+                        currentSize = p.radius
+                    }
                     BasicDrawer.drawPoint((toFrameSpace(p.pos), (p.color._1/255f, p.color._2/255f, p.color._3/255f)))
                 } 
                 BasicDrawer.endDrawing()
