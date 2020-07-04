@@ -12,10 +12,12 @@ This library depends on LWJGL3, it is already imported for Linux, if you want a 
 
 ## Contribute
 Open problems im working on are:
-* Two Visualization (currently only Graph.scala) options: JFrame (-> improve performance) and OpenGL (-> in progress)
+* <del>Two Visualization (currently only Graph.scala) options: JFrame (-> improve performance) and OpenGL</del> (-> in progress, nearly done)
 * More methods for Vector and Matrix class
 * More classes (ideas?)
   * Complex Numbers
     * Quaternions
+  * Polynoms
+  * Algorithms (e.g. Bezier curves, Newton Polynom)
 * More Documentation (Java Doc)
 Feel free to contribute and improve this project, I am open to criticism :)
