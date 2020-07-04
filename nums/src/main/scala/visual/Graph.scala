@@ -107,25 +107,27 @@ class OpenGLGraph extends Thread with Graph{
             w = display.getSize()._1
             h = display.getSize()._2
             if(update){
+                println("render")
                 update = false
                 display.clear()
                 val midp = toFrameSpace(0,0)
-                val lines = ((-1f, midp._2), (1f, midp._2), (0f, 0f, 0f)) :: ((midp._1, -1f), (midp._1, 1f), (0f, 0f, 0f)) :: Nil
+                val numx = w/20
+                val numy = h/20
+                val stepx = getStep(numx, range = x_space)
+                val stepy = getStep(numy, range = y_space)
+                val nums = (math.ceil((x_space._2-x_space._1)/stepx).toInt, math.ceil((y_space._2-y_space._1)/stepy).toInt)
+                val linewidth = 0.007f
+                val lines = ((-1f, midp._2), (1f, midp._2), (0f, 0f, 0f)) :: ((midp._1, -1f), (midp._1, 1f), (0f, 0f, 0f)) :: 
+                (1 to Math.max(nums._1, nums._2)).par.map(i =>{
+                    val (x,y) = toFrameSpace(x_space._1 + i*stepx, y_space._1 + i*stepy)
+                    var l = List[((Float, Float), (Float, Float), (Float, Float, Float))]()
+                    if(i<nums._1)
+                        l = ((x, midp._2 - linewidth), (x, midp._2 + linewidth), (0f, 0f, 0f))::l
+                    if(i<nums._2)
+                        l = ((midp._1 - linewidth, y), (midp._1 + linewidth, y), (0f, 0f, 0f))::l
+                    l
+                }).flatten.toList
                 BasicDrawer.drawLines(lines)
-                // while(x_space._1+stepx*i < x_space._2){
-                //     val x = toFrameSpace(x_space._1+stepx*i, 0)._1
-                //     g.drawLine(x.toInt, midp._2.toInt - 3, x.toInt, midp._2.toInt + 3)
-                //     g.drawString(""+(x_space._1 + stepx*i), x-5, midp._2 + (if(i%2==0) -3 else 12))
-                //     i+=1
-                // }
-                // i = 1
-                // while(y_space._1+stepy*i < y_space._2){
-                //     val y = toFrameSpace(0, y_space._1+stepy*i)._2
-                //     g.drawLine(midp._1.toInt - 3, y.toInt, midp._1.toInt + 3, y.toInt)
-                //     if(Math.abs(y-midp._2) >= 20) g.drawString(""+(y_space._1 + stepy*i), midp._1 + (if(i%2==0) -25 else 3), y)
-                //     i+=1
-                // }
-                //Collect points to render them 
                 var currentSize = -1f
                 for(po <- stuff if(po.isInstanceOf[Point])){
                     val p:Point = po.asInstanceOf[Point]
@@ -157,10 +159,10 @@ class OpenGLGraph extends Thread with Graph{
         }
         display.destroy()
     }
-    override def drawStuff{
-        //update = true
+    override def drawStuff:Unit = {
+        update = true
     }
-     //xspace, yspace => (-1, 1), (-1, 1)
+    //xspace, yspace => (-1, 1), (-1, 1)
     override protected def toFrameSpace(p:(Float,Float)):(Float, Float) = (((p._1 - x_space._1)/(x_space._2 - x_space._1))*2f - 1f,
                                                                            ((p._2 - y_space._1)/(y_space._2 - y_space._1))*2f - 1f)
     override protected def toDiagramSpace(p:(Float,Float)):(Float, Float) = (((p._1 + 1f)/2f)*(x_space._2 - x_space._1) + x_space._1, 

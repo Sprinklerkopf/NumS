@@ -8,6 +8,7 @@ object Main  {
       val y = (Math.random()-0.5)*1000
       g.add(new Point(new Vec2(x.toFloat,y.toFloat), color=cols((Math.random()*cols.size).toInt), radius=3))
     }
+    g.add(new Point((200f, 200f), (0, 0, 0), radius = 13))
     g.add(new MathFunction(x => x*math.sin(x/10f).toFloat))
     g.drawStuff()
   }
