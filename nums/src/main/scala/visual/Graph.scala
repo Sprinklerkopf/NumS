@@ -140,6 +140,18 @@ class OpenGLGraph extends Thread with Graph{
                     BasicDrawer.drawPoint((toFrameSpace(p.pos), (p.color._1/255f, p.color._2/255f, p.color._3/255f)))
                 } 
                 BasicDrawer.endDrawing()
+                for(so <- stuff if(so.isInstanceOf[MathFunction])){
+                    val f = so.asInstanceOf[MathFunction]
+                    BasicDrawer.beginDrawingLines()
+                    var old = (-1f, toFrameSpace(0, f.f(toDiagramSpace(-1f,0)._1))._2)
+                    for(i<-0 to getWindowSize()._1){
+                        val x = (i.toFloat/getWindowSize()._1 * 2f) - 1f
+                        val n = (x, toFrameSpace(0, f.f(toDiagramSpace(x,0)._1))._2)
+                        BasicDrawer.drawLine(old, n, (f.color._1/255f, f.color._2/255f, f.color._3/255f))
+                        old = n
+                    }
+                    BasicDrawer.endDrawing()
+                }
             }
             display.update()
         }

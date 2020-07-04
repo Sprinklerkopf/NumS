@@ -2,7 +2,10 @@ import org.lwjgl.opengl.GL11._
 import java.awt.Font
 import javax.swing.JLabel
 object BasicDrawer {
+  def endDrawing() = glEnd
   //FONT //TODO
+
+  
   //POINTS
   def drawPoints(p:List[((Float, Float), (Float, Float, Float))], radius:Float = 1f) {
     glPointSize(radius)
@@ -21,8 +24,14 @@ object BasicDrawer {
       glColor3f(p._2._1, p._2._2, p._2._3)
       glVertex2f(p._1._1, p._1._2)
   }
-  def endDrawing() = glEnd
+  
   //LINES
+  def beginDrawingLines() = glBegin(GL_LINES)
+  def drawLine(p1:(Float, Float), p2:(Float, Float), col:(Float, Float, Float)) = {
+      glColor3f(col._1, col._2, col._3)
+      glVertex2f(p1._1, p1._2)
+      glVertex2f(p2._1, p2._2)
+  }
   def drawLines(lines:List[((Float, Float), (Float, Float), (Float, Float, Float))]){
     glBegin(GL_LINES)
     lines.foreach(p => {

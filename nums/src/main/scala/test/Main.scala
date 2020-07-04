@@ -6,8 +6,9 @@ object Main  {
     for(i<-0 to 500){
       val x = (Math.random()-0.5)*1000
       val y = (Math.random()-0.5)*1000
-      g.add(new Point(new Vec2(x.toFloat,y.toFloat), color=cols((Math.random()*cols.size).toInt), radius=2))
+      g.add(new Point(new Vec2(x.toFloat,y.toFloat), color=cols((Math.random()*cols.size).toInt), radius=3))
     }
+    g.add(new MathFunction(x => x*math.sin(x/10f).toFloat))
     g.drawStuff()
   }
 }
