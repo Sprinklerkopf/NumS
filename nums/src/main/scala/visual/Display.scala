@@ -1,4 +1,5 @@
-
+package visual
+import numSmath._
 import org.lwjgl.glfw.GLFW._
 import org.lwjgl.glfw.GLFWErrorCallback
 import org.lwjgl.opengl.GL

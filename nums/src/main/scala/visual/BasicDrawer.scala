@@ -1,3 +1,4 @@
+package visual
 import org.lwjgl.opengl.GL11._
 import java.awt.Font
 import javax.swing.JLabel

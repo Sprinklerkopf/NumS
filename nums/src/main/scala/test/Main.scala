@@ -1,4 +1,5 @@
-
+import visual._
+import numSmath._
 object Main  {
   def main(args:Array[String]){
     val g = new OpenGLGraph()

@@ -1,0 +1,5 @@
+package visual
+
+class OGLChar{
+    
+}

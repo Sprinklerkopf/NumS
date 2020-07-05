@@ -1,3 +1,5 @@
+package visual
+import numSmath._
 import javax.swing._
 import java.awt.Toolkit
 import java.awt.GraphicsEnvironment
@@ -107,7 +109,6 @@ class OpenGLGraph extends Thread with Graph{
             w = display.getSize()._1
             h = display.getSize()._2
             if(update){
-                println("render")
                 update = false
                 display.clear()
                 val midp = toFrameSpace(0,0)

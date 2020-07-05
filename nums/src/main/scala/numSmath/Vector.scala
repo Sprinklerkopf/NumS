@@ -1,3 +1,4 @@
+package numSmath
 class Vector(vals:Float*){
   def this(v:Vector){
     this(v.getValues().map(v=>v):_*)
