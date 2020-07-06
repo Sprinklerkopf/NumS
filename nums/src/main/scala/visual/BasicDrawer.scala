@@ -4,9 +4,22 @@ import java.awt.Font
 import javax.swing.JLabel
 object BasicDrawer {
   def endDrawing() = glEnd
-  //FONT //TODO
-
-  
+  //TEXTURE
+  def drawImage(img:Int, pos:(Float, Float), size:(Float, Float)){
+    glEnable(GL_TEXTURE_2D)
+    glBindTexture(GL_TEXTURE_2D, img)
+    glBegin(GL_QUADS)
+    glTexCoord2f(0, 0)
+    glVertex2f(pos._1, pos._2)
+    glTexCoord2f(0, 1)
+    glVertex2f(pos._1, pos._2 + size._2)
+    glTexCoord2f(1, 1)
+    glVertex2f(pos._1 + size._1, pos._2 + size._2)
+    glTexCoord2f(1, 0)
+    glVertex2f(pos._1 + size._1, pos._2)
+    glEnd()
+    glDisable(GL_TEXTURE_2D)
+  }
   //POINTS
   def drawPoints(p:List[((Float, Float), (Float, Float, Float))], radius:Float = 1f) {
     glPointSize(radius)
