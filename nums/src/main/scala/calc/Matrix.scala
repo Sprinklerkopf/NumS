@@ -1,4 +1,4 @@
-package numSmath
+package calc
 import java.util
 
 class Matrix (v:List[List[Float]]){

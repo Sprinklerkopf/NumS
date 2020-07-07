@@ -1,5 +1,5 @@
 import visual._
-import numSmath._
+import calc._
 import java.awt.Font
 object Main  {
   def main(args:Array[String]){

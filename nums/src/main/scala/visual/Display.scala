@@ -1,5 +1,5 @@
 package visual
-import numSmath._
+import calc._
 import org.lwjgl.glfw.GLFW._
 import org.lwjgl.glfw.GLFWErrorCallback
 import org.lwjgl.opengl.GL
@@ -34,6 +34,10 @@ class Display(title:String, w:Int, h:Int){
   glfwWindowHint(GLFW_SAMPLES, 4)
   val window:Long = glfwCreateWindow(width, height, title, NULL, NULL)
   if(window == NULL) throw new GLFWException("Could not create Window")
+  val wx = Array.ofDim[Int](1)
+  val wy = Array.ofDim[Int](1)
+  glfwGetMonitorPos(monitor, wx, wy)
+  glfwSetWindowPos(window, wx(0) + glfwGetVideoMode(monitor).width()/2-width/2, wy(0) + glfwGetVideoMode(monitor).height()/2-height/2)
   glfwMakeContextCurrent(window)
   glfwSwapInterval(1)
   GL.createCapabilities()
