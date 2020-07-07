@@ -124,7 +124,10 @@ class OpenGLGraph extends Thread with Graph{
                 val fh = (font.getHeight()/display.getSize()._2.toFloat)
                 for (i <- 1 to Math.max(nums._1, nums._2)){
                     val (x,y) = toFrameSpace(x_space._1 + i*stepx  - stepx/2f, y_space._1 + i*stepy)
-                    font.drawString(""+(x_space._1 + i*stepx), (x, midp._2- (if(i%2==0)linewidth + fh else -linewidth)), (0f,0f,0f, 1f))
+                    if(Math.abs(x) > 0.05f)
+                        font.drawString(""+(x_space._1 + i*stepx), (x, midp._2- (if(i%2==0)linewidth + fh else -linewidth)), (0f,0f,0f, 1f))
+                    if(Math.abs(y) > 0.05f)
+                        font.drawString(""+(y_space._1 + i*stepy), (midp._1- (if(i%2==0)linewidth+0.045f else -linewidth), y-fh/2f), (0f,0f,0f, 1f))
                 }
                 val lines = ((-1f, midp._2), (1f, midp._2), (0f, 0f, 0f)) :: ((midp._1, -1f), (midp._1, 1f), (0f, 0f, 0f)) :: 
                 (1 to Math.max(nums._1, nums._2)).par.map(i =>{
