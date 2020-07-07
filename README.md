@@ -4,6 +4,11 @@ Math and visualization toolkit for Scala
 **STILL UNDER CONSTRUCTION**
 
 This Scala library has the aim to extend Scala's (and Java's) native math, data processing and data visualization capabilities to make it easy to work on scientific tasks with the programming language family of Java. Mainly it's purpose is to solve, visualize and automate my math and algorithm homeworks :)
+## Features
+* Two Graph visualization classes (currently for Points and Functions), even one with OpenGL rendering
+* Matrix and Vector Classes
+* MathFunction Class
+* *MORE TO COME*
 
 ## Usage
 This project is built with SBT so you can simply built it with the given build file (nums/build.sbt).
@@ -13,7 +18,8 @@ This library depends on LWJGL3, it is already imported for Linux, if you want a 
 
 ## Contribute
 Open problems im working on are:
-* <del>Two Visualization (currently only Graph.scala) options: JFrame (-> improve performance) and OpenGL</del> (-> in progress, nearly done)
+* More Graphical Elements (=> Rects, Circles, maybe even Sets)
+* Derivatives and Integrals
 * More methods for Vector and Matrix class
 * More classes (ideas?)
   * Complex Numbers
