@@ -104,7 +104,9 @@ class OpenGLGraph extends Thread with Graph{
     start()
     override def run(){
         val display = new Display("NumS - 2 dimensional Graph")
+        val font:OGLFont = new OGLFont(new Font("Arial", Font.PLAIN, 20), display.getSize()._1, display.getSize()._2)
         display.setClearColor((1f,1f,1f))
+        display.show()
         while(!display.shouldClose){
             w = display.getSize()._1
             h = display.getSize()._2
@@ -118,12 +120,18 @@ class OpenGLGraph extends Thread with Graph{
                 val stepy = getStep(numy, range = y_space)
                 val nums = (math.ceil((x_space._2-x_space._1)/stepx).toInt, math.ceil((y_space._2-y_space._1)/stepy).toInt)
                 val linewidth = 0.007f
+                for (i <- 1 to Math.max(nums._1, nums._2)){
+                    val (x,y) = toFrameSpace(x_space._1 + i*stepx  - stepx/2f, y_space._1 + i*stepy)
+                    font.drawString(""+(x_space._1 + i*stepx), (x, midp._2- (if(i%2==0)0.035f else 0)), (0f,0f,0f, 1f))
+                }
+
                 val lines = ((-1f, midp._2), (1f, midp._2), (0f, 0f, 0f)) :: ((midp._1, -1f), (midp._1, 1f), (0f, 0f, 0f)) :: 
                 (1 to Math.max(nums._1, nums._2)).par.map(i =>{
                     val (x,y) = toFrameSpace(x_space._1 + i*stepx, y_space._1 + i*stepy)
                     var l = List[((Float, Float), (Float, Float), (Float, Float, Float))]()
-                    if(i<nums._1)
+                    if(i<nums._1){
                         l = ((x, midp._2 - linewidth), (x, midp._2 + linewidth), (0f, 0f, 0f))::l
+                    }
                     if(i<nums._2)
                         l = ((midp._1 - linewidth, y), (midp._1 + linewidth, y), (0f, 0f, 0f))::l
                     l

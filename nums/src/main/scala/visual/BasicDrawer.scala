@@ -5,8 +5,9 @@ import javax.swing.JLabel
 object BasicDrawer {
   def endDrawing() = glEnd
   //TEXTURE
-  def drawImage(img:Int, pos:(Float, Float), size:(Float, Float)){
+  def drawImage(img:Int, pos:(Float, Float), size:(Float, Float), color:(Float,Float,Float,Float) = (1,1,1,1)){
     glEnable(GL_BLEND)
+    glColor4f(color._1, color._2, color._3, color._4);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
     glEnable(GL_TEXTURE_2D)
     glBindTexture(GL_TEXTURE_2D, img)

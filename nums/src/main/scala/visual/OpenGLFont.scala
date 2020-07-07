@@ -12,6 +12,7 @@ import java.nio.ByteBuffer
 import java.awt.Canvas
 import scala.collection.parallel.CollectionConverters._
 import scala.collection.parallel.immutable.ParSeq
+import numSmath.Vec4
 class OGLChar(c:Char, font:Font){
     private var image:Int = -1 //OpenGL Image
     private var width:Int = -1
@@ -29,7 +30,7 @@ class OGLChar(c:Char, font:Font){
             val desc = g.getFontMetrics().getLineMetrics(c.toString(), g).getDescent()
             val baseline = bi.getHeight()/(bi.getHeight()-desc)
             g.setColor(new Color(0,0,0,0))
-            g.clearRect(0, 0, bi.getWidth(), bi.getHeight())
+            g.fillRect(0, 0, bi.getWidth(), bi.getHeight())
             g.setColor(Color.white)
             g.drawString(c.toString(), 0, (bi.getHeight()-desc).toInt-1)
             g.dispose()
@@ -41,7 +42,7 @@ class OGLChar(c:Char, font:Font){
                     data((i*bi.getWidth() + j)*4) = col.getRed().toByte //r
                     data((i*bi.getWidth() + j)*4+1) = col.getGreen().toByte //g
                     data((i*bi.getWidth() + j)*4+2) = col.getBlue().toByte   //b
-                    data((i*bi.getWidth() + j)*4+3) = ((rgba >> 24) & 0xFF).toByte //a
+                    data((i*bi.getWidth() + j)*4+3) = col.getAlpha().toByte //a
                 }
             }
             (data, bi.getWidth(), bi.getHeight())
@@ -73,13 +74,13 @@ class OGLFont(font:Font, width:Int, height:Int){
         v._1.toGLImage(v._2._1,v._2._2,v._2._3)
         v._1
     })
-    def drawString(s:String, pos:Vec2, color:Vec3) = {
+    def drawString(s:String, pos:Vec2, color:Vec4) = {
         def toFrame(x:Float, y:Float) = ((x/width.toFloat)*2f-1f, (y/height)*2f-1f)
         var posx = 0f
         for(c <- s.toCharArray()){
             val oc = chars(c.toInt)
             val cs = (oc.getWidth/width.toFloat, fm.getHeight()/height.toFloat)
-            BasicDrawer.drawImage(oc.getImage(), Vec2.toTupel(pos+new Vec2(posx, 0)), cs) //toFrame(0,oc.getBaseline())._2
+            BasicDrawer.drawImage(oc.getImage(), Vec2.toTupel(pos+new Vec2(posx, 0)), cs, color) //toFrame(0,oc.getBaseline())._2
             posx += cs._1
         }
     }

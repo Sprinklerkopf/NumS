@@ -38,7 +38,8 @@ class Display(title:String, w:Int, h:Int){
   glfwSwapInterval(1)
   GL.createCapabilities()
   glViewport(0,0, width, height)
-  glfwShowWindow(window)
+
+  def show() = glfwShowWindow(window)
 
   def this(title:String) = this(title, -1, -1)
   def shouldClose = glfwWindowShouldClose(window)
