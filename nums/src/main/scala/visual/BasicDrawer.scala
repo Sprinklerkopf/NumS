@@ -6,6 +6,8 @@ object BasicDrawer {
   def endDrawing() = glEnd
   //TEXTURE
   def drawImage(img:Int, pos:(Float, Float), size:(Float, Float)){
+    glEnable(GL_BLEND)
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
     glEnable(GL_TEXTURE_2D)
     glBindTexture(GL_TEXTURE_2D, img)
     glBegin(GL_QUADS)
