@@ -10,8 +10,12 @@ class Matrix (v:List[List[Float]]){
   }
   def *(mat:Matrix): Matrix ={
       if(mat == null || mat.n != m) throw new IllegalArgumentException("incompatible Matrix size")
-      new Matrix( (for(i <- 0 to m-1) yield
-        (for(j <- 0 to mat.n-1) yield (0 to n-1).foldLeft(0f)((sum, k) => sum+vals(i)(k)*mat.vals(k)(j))).toList).toList)
+      new Matrix(List.tabulate(m)(i => (List.tabulate(mat.n)(j => 
+        (0 to n-1).foldLeft(0f)((sum, k) => sum+vals(i)(k)*mat.vals(k)(j))))))
+  }
+  def *(vec:Vector): Vector = {
+      if(vec == null || vec.getValues().size != m) throw new IllegalArgumentException("incompatible Matrix size")
+      new Vector(vals.map(_.zip(vec.getValues()).foldLeft(0f)((sum, p) => p._1*p._2 + sum)):_*)
   }
   def setIdentity(): Matrix = {
     val l = Array.ofDim[Float](m, n)
@@ -29,4 +33,8 @@ class Matrix (v:List[List[Float]]){
     case mat:Matrix => if(mat.m != m || mat.n != n) false else mat.vals.zip(vals).forall(c => c._1.zip(c._2).forall(c2 => c2._1 == c2._2))
     case _ => false
   }
+}
+trait QuadraticMatrix extends Matrix{
+  def determinant():Float = ???
+  def inverse():QuadraticMatrix = ???
 }
