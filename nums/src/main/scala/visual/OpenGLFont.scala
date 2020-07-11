@@ -102,7 +102,8 @@ class OGLFont(font:Font, width:Int, height:Int){
             }
             val oc = chars(c)
             val cs = (oc.getWidth/width.toFloat, fm.get.getHeight()/height.toFloat)
-            BasicDrawer.drawImage(oc.getImage(), Vec2.toTupel(pos+new Vec2(posx, 0)), cs, color) //toFrame(0,oc.getBaseline())._2
+            val p:Vec2 =  (pos+new Vec2(posx, 0))
+            BasicDrawer.drawImage(oc.getImage(), (p.x.toFloat, p.y.toFloat), cs, (color.x.toFloat, color.y.toFloat, color.z.toFloat, color.w.toFloat)) //toFrame(0,oc.getBaseline())._2
             posx += cs._1
         }
     }

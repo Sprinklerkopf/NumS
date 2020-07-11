@@ -1,5 +1,5 @@
 package calc
-class Vector(vals:Float*){
+class Vector(vals:Double*){
   def this(v:Vector){
     this(v.getValues().map(v=>v):_*)
   }
@@ -10,7 +10,7 @@ class Vector(vals:Float*){
    * @param vec the Vector to be added
    * @return the result of the Addition
    */
-  def +(vec:Vector): Vector = new Vector(vals.zipAll(vec.getValues(), 0f,0f).map(x => x._1 + x._2):_*)
+  def +(vec:Vector): Vector = new Vector(vals.zipAll(vec.getValues(), 0.0,0.0).map(x => x._1 + x._2):_*)
   /**
    * Multiplies the Vectors component wise.
    * The size of the bigger Vector (with more components) will be kept.
@@ -18,18 +18,18 @@ class Vector(vals:Float*){
    * @param vec the Vector to be multiplied
    * @return the result of the Multiplication
    */
-  def *(vec:Vector): Vector = new Vector(vals.zipAll(vec.getValues(), 1f,1f).map(x => x._1 * x._2):_*)
+  def *(vec:Vector): Vector = new Vector(vals.zipAll(vec.getValues(), 1.0,1.0).map(x => x._1 * x._2):_*)
   /**
     * Multiplies the Vectors components by the given Scalar
     * @param s the Scalar with which this Vector will be sized
     * @return a new Vector, multiplied by s
     */
-  def *(s:Float): Vector = new Vector(vals.map(f => f*s):_*)
+  def *(s:Double): Vector = new Vector(vals.map(f => f*s):_*)
   /**
     * Returns the length of this Vector by the formula of pythagoras
     * @return Length of this Vector
     */
-  def length:Float = math.sqrt(vals.foldLeft(0.0)((p, v) => p + math.pow(v,2))).toFloat
+  def length:Double = math.sqrt(vals.foldLeft(0.0)((p, v) => p + math.pow(v,2))).toDouble
   /**
     * Calculates a new Vector with the same direction as this one but with a length of one
     * @return this vector as a normalized one
@@ -60,25 +60,25 @@ class Vector(vals:Float*){
   }
   implicit def getValues() = vals
 }
-class Vec2(val x:Float,val y:Float) extends Vector(x,y){}
-class Vec3(val x:Float,val y:Float,val z:Float) extends Vector(x,y,z){
+class Vec2(val x:Double,val y:Double) extends Vector(x,y){}
+class Vec3(val x:Double,val y:Double,val z:Double) extends Vector(x,y,z){
   def cross:Vec3=>Vec3=a=>new Vec3(a.z*y-z*a.y, z*a.x-x*a.z, x*a.y-y*a.x)
 }
-class Vec4(val x:Float,val y:Float,val z:Float,val w:Float) extends Vector(x,y,z,w){}
+class Vec4(val x:Double,val y:Double,val z:Double,val w:Double) extends Vector(x,y,z,w){}
 //CASTING
 object Vec2{
-  implicit def toTupel(vec:Vec2):(Float, Float) = (vec.x,vec.y)
-  implicit def fromTupel(vec:(Float, Float)) = new Vec2(vec._1,vec._2)
+  implicit def toTupel(vec:Vec2):(Double, Double) = (vec.x,vec.y)
+  implicit def fromTupel(vec:(Double, Double)) = new Vec2(vec._1,vec._2)
   implicit def toVec2(vec:Vector):Vec2 = new Vec2(vec.getValues()(0), vec.getValues()(1))
 }
 object Vec3{
   implicit def toTupel(vec:Vec3) = (vec.x,vec.y,vec.z)
-  implicit def fromTupel(vec:(Float, Float, Float)) = new Vec3(vec._1,vec._2,vec._3)
+  implicit def fromTupel(vec:(Double, Double, Double)) = new Vec3(vec._1,vec._2,vec._3)
   implicit def toVec3(vec:Vector):Vec3 = new Vec3(vec.getValues()(0), vec.getValues()(1), vec.getValues()(2))
 }
 object Vec4{
-  implicit def toTupel(vec:Vec4):(Float, Float, Float, Float) = (vec.x,vec.y,vec.z,vec.w)
-  implicit def fromTupel(vec:(Float, Float, Float, Float)) = new Vec4(vec._1,vec._2,vec._3,vec._4)
+  implicit def toTupel(vec:Vec4):(Double, Double, Double, Double) = (vec.x,vec.y,vec.z,vec.w)
+  implicit def fromTupel(vec:(Double, Double, Double, Double)) = new Vec4(vec._1,vec._2,vec._3,vec._4)
   implicit def toVec4(vec:Vector):Vec4 = new Vec4(vec.getValues()(0), vec.getValues()(1), vec.getValues()(2), vec.getValues()(3))
 }
 object VecTools{

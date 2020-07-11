@@ -47,7 +47,7 @@ class Display(title:String, w:Int, h:Int){
 
   def this(title:String) = this(title, -1, -1)
   def shouldClose = glfwWindowShouldClose(window)
-  def setClearColor(c: Vec3) = glClearColor(c.x, c.y, c.z, 1.0f)
+  def setClearColor(c: Vec3) = glClearColor(c.x.toFloat, c.y.toFloat, c.z.toFloat, 1.0f)
   def destroy(){
     glfwDestroyWindow(window)
     glfwTerminate()
