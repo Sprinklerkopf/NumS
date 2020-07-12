@@ -42,8 +42,8 @@ class Vector(vals:Double*){
     * Alternative to String Method
     * @return A String representing the components of this Vector as fractions
     */
-  def asFrac():String = {
-    val s = vals.foldLeft(new StringBuilder("["))((a,b)=>a.append(VecTools.convDecToFrac(b)+ ", "))
+  def toFracString():String = {
+    val s = vals.foldLeft(new StringBuilder("["))((a,b)=>a.append(new Frac(b)+ ", "))
     s.delete(s.size-2, s.size)
     s.append("]")
     s.toString()
@@ -80,31 +80,6 @@ object Vec4{
   implicit def toTupel(vec:Vec4):(Double, Double, Double, Double) = (vec.x,vec.y,vec.z,vec.w)
   implicit def fromTupel(vec:(Double, Double, Double, Double)) = new Vec4(vec._1,vec._2,vec._3,vec._4)
   implicit def toVec4(vec:Vector):Vec4 = new Vec4(vec.getValues()(0), vec.getValues()(1), vec.getValues()(2), vec.getValues()(3))
-}
-object VecTools{
-  //FROM JAVA CODE
-  def convDecToFrac(x:Double):String = {
-    if(x<0) "-"+convDecToFrac(-x)
-    else{
-      val tolerance = 1.0E-6
-      var h1=1.0
-      var h2=0.0
-      var k1=0.0
-      var k2=1.0
-      var b = x
-      do {
-          val a = Math.floor(b)
-          var aux = h1 
-          h1 = a*h1+h2
-          h2 = aux
-          aux = k1
-          k1 = a*k1+k2
-          k2 = aux
-          b = 1.0/(b-a)
-      } while (Math.abs(x-h1/k1) > x*tolerance);
-      h1+"/"+k1;
-    }
-  }
 }
 
 

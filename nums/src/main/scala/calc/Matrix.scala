@@ -16,7 +16,7 @@ class Matrix (v:List[List[Double]]){
         (0 to n-1).foldLeft(0.0)((sum, k) => sum+vals(i)(k)*mat.vals(k)(j))))))
   }
   def *(vec:Vector): Vector = {
-      if(vec == null || vec.getValues().size != m) throw new InvalidMatrixSizeException("incompatible Matrix size")
+      if(vec == null || vec.getValues().size != n) throw new InvalidMatrixSizeException("incompatible Matrix size")
       new Vector(vals.map(_.zip(vec.getValues()).foldLeft(0.0)((sum, p) => p._1*p._2 + sum)):_*)
   }
   def *(v:Double): Matrix = new Matrix(vals.map(row => row.map(m => m*v)))
@@ -26,7 +26,7 @@ class Matrix (v:List[List[Double]]){
   
   def toFracString(): String = {
     val s = new StringBuilder("[")
-    for(i <- 0 to m-1) for(j <- 0 to n-1) s.append(VecTools.convDecToFrac(vals(i)(j)) + (if (j != n-1)", " else if(i != m-1) ",\n" else "]"))
+    for(i <- 0 to m-1) for(j <- 0 to n-1) s.append(new Frac(vals(i)(j)) + (if (j != n-1)", " else if(i != m-1) ",\n" else "]"))
     s.toString()
   }
   override def toString: String = {
