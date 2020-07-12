@@ -3,10 +3,9 @@ import calc._
 import java.awt.Font
 object Main  {
   def main(args:Array[String]){
-    val mat1 = new Matrix(List(List(3f,	1f, 42f),
-        List(5f,	2f, 69f),
-        List(7f, 3f, -402f)))
-    println(mat1.inverse())
+    val mat1 = new Matrix(5, 2, Seq[Double](1, 0, 1, 3, 1, 5, 1, 5, 1, 7))
+    val ata = ((mat1.transpose()*mat1).inverse() * mat1.transpose())
+    println(ata.toFracString())
     val g = new OpenGLGraph()
     val cols = List[(Int,Int,Int)]((0,0,255), (50,255,0), (255,50,0), (250,250,0), (250,0,250))
     for(i<-0 to 500){

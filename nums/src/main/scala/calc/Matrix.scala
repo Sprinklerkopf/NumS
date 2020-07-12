@@ -7,11 +7,11 @@ class Matrix (v:List[List[Double]]){
   private val m = v.size
   private val n = v(0).size
   def this(m:Int, n:Int, a:Seq[Double]) = {
-    this(List.tabulate(m)(i=>List.tabulate(n)(j=>a(i*m+j))))
+    this(List.tabulate(m)(i=>List.tabulate(n)(j=>a(i*n+j))))
   }
 
   def *(mat:Matrix): Matrix ={
-      if(mat == null || mat.n != m) throw new InvalidMatrixSizeException("incompatible Matrix size")
+      if(mat == null || mat.m != n) throw new InvalidMatrixSizeException("incompatible Matrix size")
       new Matrix(List.tabulate(m)(i => (List.tabulate(mat.n)(j => 
         (0 to n-1).foldLeft(0.0)((sum, k) => sum+vals(i)(k)*mat.vals(k)(j))))))
   }
@@ -20,10 +20,15 @@ class Matrix (v:List[List[Double]]){
       new Vector(vals.map(_.zip(vec.getValues()).foldLeft(0.0)((sum, p) => p._1*p._2 + sum)):_*)
   }
   def *(v:Double): Matrix = new Matrix(vals.map(row => row.map(m => m*v)))
-
+  def transpose() : Matrix = new Matrix(List.tabulate(n)(j => List.tabulate(m)(i => vals(i)(j))))
   def swapLine(i:Int, j:Int) = if(i < 0 || i > m || j < 0 || j > n) throw new NonExistingElementException("Line does not exist")
     else new Matrix(List.tabulate(m)(k => if(k == i) vals(j) else if(k == j) vals(i) else vals(k)))
   
+  def toFracString(): String = {
+    val s = new StringBuilder("[")
+    for(i <- 0 to m-1) for(j <- 0 to n-1) s.append(VecTools.convDecToFrac(vals(i)(j)) + (if (j != n-1)", " else if(i != m-1) ",\n" else "]"))
+    s.toString()
+  }
   override def toString: String = {
     val s = new StringBuilder("[")
     for(i <- 0 to m-1) for(j <- 0 to n-1) s.append(vals(i)(j) + (if (j != n-1)", " else if(i != m-1) ",\n" else "]"))
