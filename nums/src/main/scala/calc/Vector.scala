@@ -6,11 +6,19 @@ class Vector(vals:Double*){
   /**
    * Adds the Vectors component wise.
    * The size of the bigger Vector (with more components) will be kept.
-   * The missing values of the smaller Vector will be filled with ones.
+   * The missing values of the smaller Vector will be filled with zeros.
    * @param vec the Vector to be added
    * @return the result of the Addition
    */
   def +(vec:Vector): Vector = new Vector(vals.zipAll(vec.getValues(), 0.0,0.0).map(x => x._1 + x._2):_*)
+  /**
+   * Substracts the Vectors component wise.
+   * The size of the bigger Vector (with more components) will be kept.
+   * The missing values of the smaller Vector will be filled with zeros.
+   * @param vec the Vector to be substracted
+   * @return the result of the Substraction
+   */
+  def -(vec:Vector): Vector = new Vector(vals.zipAll(vec.getValues(), 0.0,0.0).map(x => x._1 - x._2):_*)
   /**
    * Multiplies the Vectors component wise.
    * The size of the bigger Vector (with more components) will be kept.

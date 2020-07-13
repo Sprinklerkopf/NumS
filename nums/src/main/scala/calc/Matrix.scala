@@ -9,7 +9,10 @@ class Matrix (v:List[List[Double]]){
   def this(m:Int, n:Int, a:Seq[Double]) = {
     this(List.tabulate(m)(i=>List.tabulate(n)(j=>a(i*n+j))))
   }
-
+  def +(mat:Matrix): Matrix = {
+    if(mat == null || mat.m != m || mat.n != n) throw new InvalidMatrixSizeException("incompatible Matrix size")
+    new Matrix(v.zip(mat.vals).map(f => f._1.zip(f._2).map(v => v._1 + v._2)))
+  }
   def *(mat:Matrix): Matrix ={
       if(mat == null || mat.m != n) throw new InvalidMatrixSizeException("incompatible Matrix size")
       new Matrix(List.tabulate(m)(i => (List.tabulate(mat.n)(j => 

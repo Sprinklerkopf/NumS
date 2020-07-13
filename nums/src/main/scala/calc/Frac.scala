@@ -4,7 +4,7 @@ object Frac {
         case (a, 0) => a
         case (a, b) => gcd(b, a % b)
     }
-    def toFrac(x:Double, error:Double=0.000001):Frac = {
+    def toFrac(x:Double, error:Double=0.0001):Frac = {
         val v = math.floor(x).toInt
         val r = x-v
         var lower = (0,1)
