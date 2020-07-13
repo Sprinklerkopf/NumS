@@ -8,6 +8,7 @@ This Scala library has the aim to extend Scala's (and Java's) native math, data 
 * Two Graph visualization classes (currently for Points and Functions), even one with OpenGL rendering
 * Matrix and Vector Classes
 * MathFunction Class
+* Fraction Class (converts decimals to Fractions)
 * *MORE TO COME*
 
 ## Usage
