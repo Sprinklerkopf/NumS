@@ -13,7 +13,7 @@ This Scala library has the aim to extend Scala's (and Java's) native math, data 
 
 ## Usage
 This project is built with SBT so you can simply built it with the given build file (nums/build.sbt).
-If you want to use it as a library delete the example usage File (Main.scala) and deploy it (sbt package).
+If you want to use it as a library build it with sbt.
 If you want to use this library in a Java context don't forget to import the scala standard libraries.
 This library depends on LWJGL3, it is already imported for Linux, if you want a different version/os natives just replace the files in the lib folder.
 
