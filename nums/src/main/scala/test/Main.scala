@@ -3,7 +3,7 @@ import calc._
 import java.awt.Font
 object Main  {
   def main(args:Array[String]){
-    val a:Frac = new Frac(3.141592)
+    val a:Frac = new Frac(0.33333333)
     println(a)
   }
 }

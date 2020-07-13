@@ -42,7 +42,7 @@ class Vector(vals:Double*){
     * Alternative to String Method
     * @return A String representing the components of this Vector as fractions
     */
-  def toFracString():String = {
+  def asFrac():String = {
     val s = vals.foldLeft(new StringBuilder("["))((a,b)=>a.append(new Frac(b)+ ", "))
     s.delete(s.size-2, s.size)
     s.append("]")
@@ -81,5 +81,6 @@ object Vec4{
   implicit def fromTupel(vec:(Double, Double, Double, Double)) = new Vec4(vec._1,vec._2,vec._3,vec._4)
   implicit def toVec4(vec:Vector):Vec4 = new Vec4(vec.getValues()(0), vec.getValues()(1), vec.getValues()(2), vec.getValues()(3))
 }
+
 
 
