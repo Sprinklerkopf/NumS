@@ -1,15 +1,8 @@
 package visual
-import numSmath._
-import javax.swing._
-import java.awt.Toolkit
-import java.awt.GraphicsEnvironment
+import java.awt.{Color, Font, Graphics, Graphics2D, GraphicsEnvironment, RenderingHints}
 import java.awt.image.BufferedImage
-import java.awt.Graphics2D
-import java.awt.Graphics
-import java.awt.Color
-import java.awt.RenderingHints
-import java.awt.Font
-import scala.collection.parallel.CollectionConverters._
+
+import javax.swing._
 
 
 trait Graph{
@@ -31,7 +24,7 @@ trait Graph{
     protected lazy val stru = upstream()
     protected def downstream(n:Float = 1f):Stream[(Float, Float)] = n match{
         case x => Stream((x, x/2f), (x/2f, x/10f))#:::downstream(n/10f)
-    } 
+    }
     protected lazy val strd = downstream()
     protected def getStep(steps:Int, range:(Float, Float)):Float = {
         val w = range._2 - range._1
@@ -40,7 +33,7 @@ trait Graph{
         else
             strd.takeWhile(p=>Math.abs(w-p._1*steps) > Math.abs(w-p._2*steps)).last._2
     }
-    protected def normalize(f:Double) = if(f == 0) 0 else
+    protected def normalize(f:Double): Float = if(f == 0) 0f else
         if(f < 1 && f > 0)
             strd.takeWhile(p=>Math.abs(f-p._1) > Math.abs(f-p._2)).last._2
         else if(f >= 1)
@@ -52,7 +45,7 @@ trait Graph{
             s match{
                 case p:Point => {
                     val edge = ((p.pos.x - p.radius, p.pos.x + p.radius), (p.pos.y - p.radius, p.pos.y + p.radius))
-                    val changed = (edge._1._1 < x_space._1 || stuff.size == 1, edge._1._2 > x_space._2|| stuff.size == 1, 
+                    val changed = (edge._1._1 < x_space._1 || stuff.size == 1, edge._1._2 > x_space._2|| stuff.size == 1,
                       edge._2._1 < y_space._1|| stuff.size == 1, edge._2._2 > y_space._2 || stuff.size == 1)
                     if(changed._1) x_space = (normalize(edge._1._1.toFloat), x_space._2)
                     if(changed._2) x_space = (x_space._1, normalize(edge._1._2.toFloat))
@@ -71,7 +64,7 @@ trait Graph{
                                 if(x >= s._1 && x <= s._2){
                                     val y = f.f(x)
                                     if(y < old._1) (normalize(y), old._2)
-                                    else if(y > old._2)(old._1, normalize(y)) 
+                                    else if(y > old._2)(old._1, normalize(y))
                                     else old
                                 }else old
                             })
@@ -80,7 +73,7 @@ trait Graph{
                                 val x = toDiagramSpace(curr,0)._1
                                 val y = f.f(x)
                                 if(y < old._1) (normalize(y), old._2)
-                                else if(y > old._2)(old._1, normalize(y)) 
+                                else if(y > old._2)(old._1, normalize(y))
                                 else old
                             })
                     }
@@ -94,7 +87,7 @@ trait Graph{
             stuff = stuff.filter(_ != s)
         }
     }
-   
+
 }
 class OpenGLGraph extends Thread with Graph{
     @volatile
@@ -129,8 +122,9 @@ class OpenGLGraph extends Thread with Graph{
                     if(Math.abs(y) > 0.05f)
                         font.drawString(""+(y_space._1 + i*stepy), (midp._1.toDouble- (if(i%2==0)linewidth+0.045f else -linewidth).toDouble, y-fh/2.0), (0.0,0.0,0.0,1.0))
                 }
-                val lines = ((-1f, midp._2.toFloat), (1f, midp._2.toFloat), (0f, 0f, 0f)) :: ((midp._1.toFloat, -1f), (midp._1.toFloat, 1f), (0f, 0f, 0f)) :: 
-                (1 to Math.max(nums._1, nums._2)).par.map(i =>{
+                val lines = ((-1f, midp._2.toFloat), (1f, midp._2.toFloat), (0f, 0f, 0f)) :: ((midp._1.toFloat, -1f), (midp._1.toFloat, 1f), (0f, 0f, 0f)) ::
+                List.tabulate(Math.max(nums._1, nums._2))(n =>{
+                    val i = n+1
                     val (x,y) = toFrameSpace(x_space._1 + i*stepx, y_space._1 + i*stepy)
                     var l = List[((Float, Float), (Float, Float), (Float, Float, Float))]()
                     if(i<nums._1){
@@ -154,7 +148,7 @@ class OpenGLGraph extends Thread with Graph{
                     }
                     val pp = toFrameSpace(p.pos)
                     BasicDrawer.drawPoint(((pp._1.toFloat, pp._2.toFloat), (p.color._1/255f, p.color._2/255f, p.color._3/255f)))
-                } 
+                }
                 BasicDrawer.endDrawing()
                 for(so <- stuff if(so.isInstanceOf[MathFunction])){
                     val f = so.asInstanceOf[MathFunction]
@@ -173,13 +167,13 @@ class OpenGLGraph extends Thread with Graph{
         }
         display.destroy()
     }
-    override def drawStuff:Unit = {
+    override def drawStuff():Unit = {
         update = true
     }
     //xspace, yspace => (-1, 1), (-1, 1)
     override protected def toFrameSpace(p:(Double,Double)):(Double, Double) = (((p._1 - x_space._1)/(x_space._2 - x_space._1))*2.0 - 1.0,
                                                                            ((p._2 - y_space._1)/(y_space._2 - y_space._1))*2.0 - 1.0)
-    override protected def toDiagramSpace(p:(Double,Double)):(Double, Double) = (((p._1 + 1.0)/2.0)*(x_space._2 - x_space._1) + x_space._1, 
+    override protected def toDiagramSpace(p:(Double,Double)):(Double, Double) = (((p._1 + 1.0)/2.0)*(x_space._2 - x_space._1) + x_space._1,
                                                                              ((p._2 + 1.0)/2.0)*(y_space._2 - y_space._1) + y_space._1)
     override protected def getWindowSize():(Int, Int) = (w,h)
 }
@@ -196,12 +190,12 @@ class SwingGraph extends JFrame with Graph{
     repaint()
     setVisible(true)
     /***************************/
-    
+
     /***************************/
     override protected def getWindowSize(): (Int, Int) = (getWidth(), getHeight())
-    override def toFrameSpace(p:(Double,Double)):(Double, Double) = ((((p._1-x_space._1)/(x_space._2-x_space._1))*getWidth()).toInt, 
+    override def toFrameSpace(p:(Double,Double)):(Double, Double) = ((((p._1-x_space._1)/(x_space._2-x_space._1))*getWidth()).toInt,
                                 getHeight()-(((p._2-y_space._1)/(y_space._2-y_space._1))*(getHeight()-30)).toInt)
-    override def toDiagramSpace(p:(Double,Double)):(Double, Double) = (x_space._1 + (p._1.toFloat/getWidth())*(x_space._2-x_space._1), 
+    override def toDiagramSpace(p:(Double,Double)):(Double, Double) = (x_space._1 + (p._1.toFloat/getWidth())*(x_space._2-x_space._1),
                                 y_space._1 + (1-(p._2.toFloat)/getHeight())*(y_space._2-y_space._1))
     override def paint(x:Graphics){
         if(puff == null || g == null || puff.getWidth() != getWidth() || puff.getHeight() != getHeight()){
@@ -213,7 +207,7 @@ class SwingGraph extends JFrame with Graph{
         drawStuff
         x.drawImage(puff, 0, 0, getWidth(), getHeight(), this)
     }
-    override def drawStuff: Unit = {
+    override def drawStuff(): Unit = {
         g.setColor(Color.white)
         g.fillRect(0,0,getWidth(),getHeight())
         //TODO: draw the grid
@@ -247,7 +241,7 @@ class SwingGraph extends JFrame with Graph{
                     val pos = toFrameSpace(p.pos.x-p.radius, p.pos.y-p.radius)
                     g.fillArc(pos._1.toInt, pos._2.toInt, (p.radius*2).toInt, (p.radius*2).toInt, 0, 360)
                 }
-                case f: MathFunction =>{ 
+                case f: MathFunction =>{
                     g.setColor(new Color(f.color._1, f.color._2, f.color._3))
                     var old = (0, toFrameSpace(0, f.f(toDiagramSpace(0,0)._1))._2)
                     val div = if(getWidth() > 1000) 5 else 1

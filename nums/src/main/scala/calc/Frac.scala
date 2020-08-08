@@ -1,12 +1,12 @@
 package calc
 object Frac {
+    @scala.annotation.tailrec
     def gcd(a:Int, b:Int):Int = (a,b) match{
         case (a, 0) => a
         case (a, b) => gcd(b, a % b)
     }
-    def toFrac(x:Double, error:Double=0.0001):Frac = {
+    implicit def toFrac(x:Double, error:Double=0.0001):Frac = {
         val v = math.floor(x).toInt
-        val r = x-v
         var lower = (0,1)
         var higher = (1,1)
         while(true){
@@ -16,8 +16,9 @@ object Frac {
             if((v*middle._2 + middle._1)/middle._2.toDouble < x) lower = middle
             else  higher = middle
         }
-        return null
+        null
     }
+    implicit def toDouble(x:Frac):Double = x.value()
 }
 class Frac(num:Int, den:Int){
     val (n, d) = {
@@ -33,5 +34,6 @@ class Frac(num:Int, den:Int){
     def +(f:Frac) = new Frac(n*f.d + d*f.n, d*f.d) 
     def *(f:Frac) = new Frac(n*f.n, d*f.d)
     def /(f:Frac) = new Frac(n/f.n, d/f.d)
-    override def toString(): String = num+"/"+den
+    def value(): Double = n/d.toDouble
+    override def toString: String = num+"/"+den
 }
