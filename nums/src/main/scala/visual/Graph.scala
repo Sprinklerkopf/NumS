@@ -21,11 +21,11 @@ trait Graph{
         case x if(x == 2) => (2f,5f)#::upstream(5)
         case x => (x,x+5)#::upstream(x+5)
     }
-    protected lazy val stru = upstream()
+    protected lazy val stru: Seq[(Float, Float)] = upstream()
     protected def downstream(n:Float = 1f):Stream[(Float, Float)] = n match{
         case x => Stream((x, x/2f), (x/2f, x/10f))#:::downstream(n/10f)
     }
-    protected lazy val strd = downstream()
+    protected lazy val strd: Seq[(Float, Float)] = downstream()
     protected def getStep(steps:Int, range:(Float, Float)):Float = {
         val w = range._2 - range._1
         if(math.abs(w/steps) >= 1f)
