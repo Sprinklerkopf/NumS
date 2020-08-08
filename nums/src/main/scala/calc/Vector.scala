@@ -1,4 +1,5 @@
 package calc
+
 class Vector(vals:Double*){
   def this(v:Vector){
     this(v.getValues.map(v=>v):_*)

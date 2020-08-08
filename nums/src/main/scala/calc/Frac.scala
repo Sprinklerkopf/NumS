@@ -1,4 +1,5 @@
 package calc
+
 object Frac {
     @scala.annotation.tailrec
     def gcd(a:Int, b:Int):Int = (a,b) match{

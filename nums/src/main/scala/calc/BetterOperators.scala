@@ -1,4 +1,5 @@
 package calc
+
 object BetterOperators {
   implicit class BetterDouble(private val a: Double) extends AnyVal{
     def **(b:Double):Double = b match{

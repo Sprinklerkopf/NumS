@@ -5,3 +5,4 @@ nums/.metals/*
 target/*
 nums/project/project/*
 nums/src/main/scala/test/Main.scala
+nums/.idea/*

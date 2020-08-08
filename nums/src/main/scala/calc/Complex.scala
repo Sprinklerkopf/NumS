@@ -1,4 +1,5 @@
 package calc
+
 import BetterOperators._
 class Complex(val r:Double, val i:Double) {
   def this(v:Double) = this(v, 0)
@@ -19,6 +20,7 @@ class Complex(val r:Double, val i:Double) {
   }
 }
 object Complex{
+  def i = new Complex(0, 1)
   implicit def intToComplex(v:Int):Complex = new Complex(v)
   implicit def doubleToComplex(v:Double):Complex = new Complex(v)
   implicit def floatToComplex(v:Float):Complex = new Complex(v)

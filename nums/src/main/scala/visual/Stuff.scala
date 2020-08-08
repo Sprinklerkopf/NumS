@@ -1,4 +1,5 @@
 package visual
+
 import calc._
 trait Stuff{}
 //var for performance (functional would require to change the rendering list every time)
