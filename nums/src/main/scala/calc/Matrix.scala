@@ -21,6 +21,7 @@ class Matrix (v:List[List[Double]]){
       if(vec == null || vec.getValues.size != n) throw new InvalidMatrixSizeException("incompatible Matrix size")
       new Vector(vals.map(_.zip(vec.getValues).foldLeft(0.0)((sum, p) => p._1*p._2 + sum)):_*)
   }
+  def apply(i:Int): Seq[Double] = vals(i)
   def *(v:Double): Matrix = new Matrix(vals.map(row => row.map(m => m*v)))
   def transpose() : Matrix = new Matrix(List.tabulate(n)(j => List.tabulate(m)(i => vals(i)(j))))
   def swapLine(i:Int, j:Int): Matrix = if(i < 0 || i > m || j < 0 || j > n) throw new NonExistingElementException("Line does not exist")
@@ -59,16 +60,14 @@ class QuadraticMatrix(vals:List[List[Double]]) extends Matrix(vals){
   }
   def determinant():Double = {
     det match{
-      case None => {
+      case None =>
         det = Some(
           shape() match{
-            case(2,2) => {
+            case(2,2) =>
               vals(0)(0)*vals(1)(1) - vals(0)(1)*vals(1)(0)
-            }
-            case(3,3) => {
+            case(3,3) =>
               vals(0)(0)*vals(1)(1)*vals(2)(2) + vals(0)(1)*vals(1)(2)*vals(2)(0) + vals(0)(2)*vals(1)(0)*vals(2)(1) -
               vals(2)(0)*vals(1)(1)*vals(0)(2) - vals(2)(1)*vals(1)(2)*vals(0)(0) - vals(2)(2)*vals(1)(0)*vals(0)(1)
-            }
             case(_, _) => //very unefficient
               //matrix without first column and i-th row
               def submatrix(i:Int) = {
@@ -79,7 +78,6 @@ class QuadraticMatrix(vals:List[List[Double]]) extends Matrix(vals){
           }
         )
         det.get
-      }
       case Some(value) => det.get
     }
   }
