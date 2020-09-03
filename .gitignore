@@ -1,8 +1,10 @@
 nums/target/*
 nums/.bloop/*
+nums/.vscode/*
 nums/project/target/*
 nums/.metals/*
 target/*
+nums/project/.metals
 nums/project/project/*
 nums/src/main/scala/test/Main.scala
 nums/.idea/*
