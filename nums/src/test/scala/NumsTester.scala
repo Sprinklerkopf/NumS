@@ -1,6 +1,5 @@
-import calc.{Matrix, NumSMathException}
+import calc.{InvalidMatrixSizeException, Matrix, NumSMathException}
 import org.scalatest.funsuite.AnyFunSuite
-import calc.InvalidMatrixSizeException
 
 class NumsTester extends AnyFunSuite{
   test("Empty Matrix"){
@@ -36,17 +35,16 @@ class NumsTester extends AnyFunSuite{
   }
   test("Matrix shape/transpose/toString"){
     val a = new Matrix(2,2, Seq(3,4,5,6)) //5 6 3 4
-    assertResult("[5, 3,\n6, 4]")(a.swapLine(0,1).transpose.toString)
+    assertResult("[5.0, 3.0,\n6.0, 4.0]")(a.swapLine(0,1).transpose.toString)
   }
   test("Matrix + * Matrix"){
     val a = new Matrix(2,2, Seq(1,2,
                                 3,4))
     val b = new Matrix(2,2, Seq(2,3,
                                 2,3))
-    assertResult(new Matrix(2,2, Seq(11, 16, 11, 16)))(a*b)
+    assertResult(new Matrix(2,2, Seq(6, 9, 14, 21)))(a*b)
     assertResult(new Matrix(2,2, Seq(3, 5, 5, 7)))(a+b)
-    assertResult(new Matrix(2,2, Seq(5,4,5,11,10,11))(a*new Matrix(2,3, Seq(1, 2, 1, 
-                                                                            2, 1, 2)))
+    assertResult(new Matrix(2,3, Seq(5,4,5,11,10,11)))(a*new Matrix(2,3, Seq(1, 2, 1, 2, 1, 2)))
     assertThrows[InvalidMatrixSizeException](a+new Matrix(3,3, Seq(3, 5, 5, 7, 3, 1, 1, 2, 3)))
     assertThrows[InvalidMatrixSizeException](a*new Matrix(3,2, Seq(3, 5, 5, 7, 3, 1)))
   }
