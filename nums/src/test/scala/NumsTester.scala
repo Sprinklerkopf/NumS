@@ -1,4 +1,4 @@
-import calc.{InvalidMatrixSizeException, Matrix, NumSMathException}
+import calc.{InvalidMatrixSizeException, Matrix, NumSMathException, QuadraticMatrix}
 import org.scalatest.funsuite.AnyFunSuite
 
 class NumsTester extends AnyFunSuite{
@@ -32,6 +32,13 @@ class NumsTester extends AnyFunSuite{
                                 0, 2, 0, 1, 0,
                                 2, 0, 0, 0, 1)) //1-
     assertResult(9)(c.determinant())
+  }
+  test("QuadraticMatrix inverse"){
+    assertResult(true)(new Matrix(3,3, Seq(
+      1/41f, -2/41f, 1/41f,
+      -2/41f, -119/41f, 80/41f,
+      1/41f, 322/123f, -202/123f
+    )).equals(0.0001f)(new Matrix(3,3, Seq.tabulate(9)(i => if(i==0) 42 else i+1)).inverse()))
   }
   test("Matrix shape/transpose/toString"){
     val a = new Matrix(2,2, Seq(3,4,5,6)) //5 6 3 4

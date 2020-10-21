@@ -38,9 +38,10 @@ class Matrix (v:List[List[Double]]){
     s.toString()
   }
   override def equals(obj: Any):Boolean = obj match{
-    case mat:Matrix => if(mat.m != m || mat.n != n) false else mat.vals.zip(vals).forall(c => c._1.zip(c._2).forall(c2 => c2._1 == c2._2))
+    case mat:Matrix => if(mat.m != m || mat.n != n) false else mat.vals.zip(vals).forall(c => c._1.zip(c._2).forall(c2 => c2._1 equals c2._2))
     case _ => false
   }
+  def equals(acc:Float)(mat:Matrix):Boolean = if(mat.m != m || mat.n != n) false else mat.vals.zip(vals).forall(c => c._1.zip(c._2).forall(c2 => math.abs(c2._1 - c2._2) <= acc))
 }
 object Matrix{
   def identity(size:Int): QuadraticMatrix = {
