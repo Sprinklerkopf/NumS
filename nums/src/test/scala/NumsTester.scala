@@ -1,4 +1,6 @@
-import calc.{InvalidMatrixSizeException, Matrix, NumSMathException, QuadraticMatrix}
+import calc.{InvalidMatrixSizeException, Matrix, NumSMathException, QuadraticMatrix, BetterOperators}
+import calc.Frac._
+import calc.BetterOperators._
 import org.scalatest.funsuite.AnyFunSuite
 
 class NumsTester extends AnyFunSuite{
@@ -56,5 +58,12 @@ class NumsTester extends AnyFunSuite{
     assertThrows[InvalidMatrixSizeException](a*new Matrix(3,2, Seq(3, 5, 5, 7, 3, 1)))
     assertResult(false)(a.equals(b))
     assertResult(true)(new Matrix(List(List(1,2), List(3,4))).equals(a))
+  }
+  test("toFrac"){
+    assertResult(5)(toFrac(5/3.0).n)
+    assertResult(3)(toFrac(5/3.0).d)
+
+    assertResult(1)(toFrac(2/8.0).n)
+    assertResult(4)(toFrac(2/8.0).d)
   }
 }

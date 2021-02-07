@@ -116,11 +116,11 @@
                 "-deprecation"
             ],
             "jars": [
-                "/home/david/.sbt/boot/scala-2.12.10/lib/scala-compiler.jar",
-                "/home/david/.sbt/boot/scala-2.12.10/lib/jansi.jar",
-                "/home/david/.sbt/boot/scala-2.12.10/lib/jline.jar",
-                "/home/david/.sbt/boot/scala-2.12.10/lib/scala-reflect.jar",
                 "/home/david/.sbt/boot/scala-2.12.10/lib/scala-library.jar",
+                "/home/david/.sbt/boot/scala-2.12.10/lib/scala-compiler.jar",
+                "/home/david/.sbt/boot/scala-2.12.10/lib/jline.jar",
+                "/home/david/.sbt/boot/scala-2.12.10/lib/jansi.jar",
+                "/home/david/.sbt/boot/scala-2.12.10/lib/scala-reflect.jar",
                 "/home/david/.sbt/boot/scala-2.12.10/lib/scala-xml_2.12.jar"
             ],
             "analysis": "/home/david/Dokumente/Programmieren/Scala/NumS/nums/project/target/streams/compile/bloopAnalysisOut/_global/streams/inc_compile_2.12.zip",
@@ -191,7 +191,7 @@
         "platform": {
             "name": "jvm",
             "config": {
-                "home": "/usr/lib/jvm/java-11-openjdk",
+                "home": "/usr/lib/jvm/java-15-openjdk",
                 "options": [
                     "-Duser.dir=/home/david/Dokumente/Programmieren/Scala/NumS/nums/project"
                 ]
