@@ -72,5 +72,6 @@ class NumsTester extends AnyFunSuite{
     assertResult(true)(5.0**2.0 ~= 25.0)
     assertResult(true)(9.0**(.5) ~= 3.0)
     assertResult(true)(3.0**(-2) ~= 1.0/9.0)
+    assertResult(false)(5.1 ~= 5.2)
   }
 }
