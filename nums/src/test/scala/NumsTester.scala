@@ -66,4 +66,11 @@ class NumsTester extends AnyFunSuite{
     assertResult(1)(toFrac(2/8.0).n)
     assertResult(4)(toFrac(2/8.0).d)
   }
+  test("Better Operators"){
+    assertResult(true)(5.000000001 ~= 5.0)
+    assertResult(true)(5.0+3.0 ~= 8.0)
+    assertResult(true)(5.0**2.0 ~= 25.0)
+    assertResult(true)(9.0**(.5) ~= 3.0)
+    assertResult(true)(3.0**(-2) ~= 1.0/9.0)
+  }
 }
